@@ -45,13 +45,11 @@ class GameDisplay
 
   def pegs_colors(pegs)
     arr=pegs.map do |peg|
-      output = ''
       if peg=='x'
-        output= '.'
+        '.'
       else
-        output= 'o'.colorize(":#{peg}")
+        Rainbow('o').send(peg)
       end
-      output
     end
     colored_pegs=arr.reduce(' | '){|sum, o| sum+o+' '}
     line=colored_pegs + '|'
@@ -60,7 +58,7 @@ class GameDisplay
 
   def guesses_colors(guesses)
     arr=guesses.map do |guess|
-      '0'.colorize(":#{guess}")
+      Rainbow('0').send(guess)
     end
     colored_guesses= arr.reduce('| '){|sum, o| sum+o+'  '}
     line=colored_guesses.rstrip

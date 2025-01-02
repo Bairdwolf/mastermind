@@ -4,9 +4,11 @@ class HumanPlayer < Player
     @name='   Human'
   end
   def make_choice(phase)
+    output= ''
     if phase=='guess'
-      return ask_input()
+      output= ask_input()
     end
+    output
   end
 
   def ask_input()

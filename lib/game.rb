@@ -44,6 +44,8 @@ class Game
   end
 
   def play_round(round)
+    # CHEAT MODE
+    puts self.code
     self.game_display.middle_new_round(round)
     position=1
     guesses=[]
@@ -51,6 +53,7 @@ class Game
       choice=players[1].make_choice('guess')
       guesses.push(choice)
       self.game_display.middle_new_guess((round*2)-1, position-1, choice)
+      position+=1
     end
     guesses
   end
