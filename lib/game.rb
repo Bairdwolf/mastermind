@@ -23,6 +23,7 @@ class Game
   def play
     until round == 13 || winner != 0
       guesses = play_round(round)
+      self.players[1].add_data(guesses)
       guesses_checked = compare(guesses)
       game_display.middle_all_guesses((round * 2) - 1, guesses_checked)
       if guesses_checked.all?('red')
@@ -47,7 +48,7 @@ class Game
     position = 1
     guesses = []
     while position < 5
-      choice = players[1].make_choice('guess')
+      choice = players[1].make_choice('guess', position)
       guesses.push(choice)
       game_display.middle_new_guess((round * 2) - 1, position - 1, choice)
       position += 1

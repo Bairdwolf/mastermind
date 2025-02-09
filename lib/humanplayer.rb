@@ -5,7 +5,7 @@ class HumanPlayer < Player
     @name = '   Human'
   end
 
-  def make_choice(phase)
+  def make_choice(phase, *position)
     output = ''
     output = ask_input(phase)
     output
@@ -18,6 +18,7 @@ class HumanPlayer < Player
       else
         puts 'Secret Code: Select a color: blue, green, yellow, pink, purple, orange'
       end
+      #input='blue'
       input = gets.chomp.to_s
       choices = %w[blue green yellow pink purple orange]
       raise StandardError.new 'Invalid input' if choices.none?(input)
@@ -26,5 +27,8 @@ class HumanPlayer < Player
       retry
     end
     input
+  end
+
+  def add_data(guesses)
   end
 end
