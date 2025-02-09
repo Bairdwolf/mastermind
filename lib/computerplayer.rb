@@ -6,8 +6,12 @@ class ComputerPlayer < Player
   end
 
   def make_choice(phase)
-    return unless phase == 'setup'
-
-    %w[blue green yellow pink purple orange].sample
+    if phase == 'setup'
+     %w[blue green yellow pink purple orange].sample
+    else
+      sleep(1)
+      %w[blue green yellow pink purple orange].sample
+      #actual guessing algorithm
+    end
   end
 end

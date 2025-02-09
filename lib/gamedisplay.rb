@@ -1,12 +1,13 @@
 class GameDisplay
   attr_accessor :top, :middle, :bottom
 
-  def initialize(player = 'human')
+  def initialize(player, *code)
     @@padding = '========================'
     @top = [@@padding, '| MASTERMIND | GUESSES |', @@padding]
     @middle = []
     bottom_message = ''
-    bottom_message = '|GUESS THE CODE AND WIN|' if player == 'human'
+    bottom_message = '|GUESS THE CODE AND WIN|' if player == 'guesser'
+    bottom_message='|YOUR CODE ' + (guesses_colors(code[0]).delete'|') + ' |'  if player == 'coder'
     @bottom = [@@padding, bottom_message, @@padding]
   end
 

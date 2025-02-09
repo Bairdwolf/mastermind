@@ -7,13 +7,17 @@ class HumanPlayer < Player
 
   def make_choice(phase)
     output = ''
-    output = ask_input if phase == 'guess'
+    output = ask_input(phase)
     output
   end
 
-  def ask_input
+  def ask_input(phase)
     begin
-      puts 'Select a color: blue, green, yellow, pink, purple, orange'
+      if phase=='guess'
+        puts 'Select a color: blue, green, yellow, pink, purple, orange'
+      else
+        puts 'Secret Code: Select a color: blue, green, yellow, pink, purple, orange'
+      end
       input = gets.chomp.to_s
       choices = %w[blue green yellow pink purple orange]
       raise StandardError.new 'Invalid input' if choices.none?(input)

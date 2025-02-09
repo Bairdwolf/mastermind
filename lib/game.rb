@@ -1,4 +1,3 @@
-# choose code function takes player argument and returns an array of colors
 # code=choose code()
 # use colorize for guesser pegs
 
@@ -9,16 +8,16 @@ class Game
   def initialize(player)
     @round = 1
     # first one in players array is coder, second is guesser
-    if player == 'human'
+    if player == 'guesser'
       @players = [ComputerPlayer.new, HumanPlayer.new]
       @game_display = GameDisplay.new(player)
+      @code = get_code(@players[0], 'setup')
     else
       @players = [HumanPlayer.new, ComputerPlayer.new]
-      @game_display = GameDisplay.new(player)
+      @code = get_code(@players[0], 'setup')
+      @game_display = GameDisplay.new(player, self.code)
     end
     @winner = 0
-    @code = get_code(@players[0], 'setup')
-    # update and display board only if computer guessing
   end
 
   def play
