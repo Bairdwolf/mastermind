@@ -23,8 +23,8 @@ class Game
   def play
     until round == 13 || winner != 0
       guesses = play_round(round)
-      self.players[1].add_data(guesses)
       guesses_checked = compare(guesses)
+      self.players[1].remove_data(guesses, guesses_checked)
       game_display.middle_all_guesses((round * 2) - 1, guesses_checked)
       if guesses_checked.all?('red')
         self.winner = 1
@@ -69,10 +69,3 @@ class Game
     unsorted.sort
   end
 end
-
-#========================
-# | MASTERMIND | GUESSES |
-#========================
-# |------------| ROUND 01|
-# | 0  0  0  0 | o o o o |
-# |------------| ROUND 02|

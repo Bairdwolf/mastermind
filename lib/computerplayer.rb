@@ -2,13 +2,11 @@ require 'pry-byebug'
 
 class ComputerPlayer < Player
   attr_reader :name
-  attr_accessor :data
   attr_accessor :working_memory
   attr_accessor :set
 
   def initialize
     @name = 'Computer'
-    @data=[]
     @working_memory=[]
     @set=create_set()
   end
@@ -35,11 +33,48 @@ class ComputerPlayer < Player
   end
 
   def guessing_algorithm()
-    if self.data.empty?
+    if self.set.length==1296
       return [1, 1, 2, 2]
     else
+      guess_list=Hash.new
+      for guess in create_set() do
+        #return the value of the minmax function, use as key, then just use the guess as the value
+        guess_list[min_max(guess)]=guess
+      end
     end
   end
+  
+  def min_max(guess)
+    set_list=Hash.new
+    for i in self.set do
+      #compare each item in the set to each possible code
+      #find out the worst case scenario. length of set-hit_count
+      set_list[i]=compare(i, guess)
+    end
+    smallest=set_list.values.max
+    return self.set.length-set_list.select{|key, value| value==smallest}.length
+  end
+
+
+  def remove_data(guesses, guesses_checked)
+    guess_numbers=guesses.map{|guess| encode_color(guess)}
+    self.set.select! {|i| compare(i, guess_numbers)==guesses_checked}
+  end
+
+
+  def compare(i, guesses)
+    unsorted = guesses.map.with_index do |guess, index|
+      if i[index] == guess
+        'red'
+      elsif i.any?(guess)
+        'white'
+      else
+        'x'
+      end
+    end
+    unsorted.sort
+  end
+
 
   def encode_color(color)
     case color
@@ -73,10 +108,6 @@ class ComputerPlayer < Player
     when 6
       return 'orange'
     end
-  end
-
-  def add_data(guesses)
-    self.data.push(guesses.map{|guess| encode_color(guess)})
   end
 
 end

@@ -29,6 +29,6 @@ class HumanPlayer < Player
     input
   end
 
-  def add_data(guesses)
+  def remove_data(guesses, guesses_checked)
   end
 end
