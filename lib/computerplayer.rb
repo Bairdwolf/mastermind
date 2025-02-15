@@ -20,7 +20,7 @@ class ComputerPlayer < Player
     if phase == 'setup'
      %w[blue green yellow pink purple orange].sample
     else
-      sleep(1.5)
+      sleep(0.5)
       choose_from_memory(position[0])      
     end
   end
@@ -39,8 +39,14 @@ class ComputerPlayer < Player
       guess_list=Hash.new
       for guess in create_set() do
         #return the value of the minmax function, use as key, then just use the guess as the value
-        guess_list[min_max(guess)]=guess
+        guess_list[guess]=min_max(guess)
       end
+      choices=guess_list.select{|key, value| value==guess_list.values.max}
+      choices_in_set=choices.select{|key, value| self.set.any?{|guess| guess==key } }
+      if choices_in_set!={}
+        choices=choices_in_set
+      end
+      choices.keys.min
     end
   end
   
